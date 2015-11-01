@@ -206,20 +206,50 @@
 	mov s1, s2			\n\t	\
 	mov s2, s3			\n\t	\
 	mov s3, t0			\n\t
+	
+/* 	11		11		*/
+#define rot_right_9_32(s0, s1, s2, s3, t0)	\
+	rot_right_8_32(s0, s1, s2, s3, t0)		\
+	rot_right_1_32(s0, s1, s2, s3)
 
-#define rot_right_9_32
+/* 	17		17		*/
+#define rot_right_10_32(s0, s1, s2, s3, t0)	\
+	rot_right_8_32(s0, s1, s2, s3, t0)		\
+	rot_right_1_32(s0, s1, s2, s3)			\
+	rot_right_1_32(s0, s1, s2, s3)
 
-#define rot_right_10_32
+/* 	23		23		*/
+#define rot_right_11_32(s0, s1, s2, s3, t0)	\
+	rot_right_8_32(s0, s1, s2, s3, t0)		\
+	rot_right_1_32(s0, s1, s2, s3)			\
+	rot_right_1_32(s0, s1, s2, s3)			\
+	rot_right_1_32(s0, s1, s2, s3)
 
-#define rot_right_11_32
+/* 	26		26		*/
+#define rot_right_12_32(s0, s1, s2, s3, t0, zero)	\
+	rot_right_16_32(s0, s1, s2, s3, t0)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)
 
-#define rot_right_12_32
+/* 	21		21		*/
+#define rot_right_13_32(s0, s1, s2, s3, t0, zero)	\
+	rot_right_16_32(s0, s1, s2, s3, t0)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)
 
-#define rot_right_13_32
+/* 	16		16		*/
+#define rot_right_14_32(s0, s1, s2, s3, t0, zero)	\
+	rot_right_16_32(s0, s1, s2, s3, t0)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)
 
-#define rot_right_14_32
-
-#define rot_right_15_32
+/* 	11		11		*/
+#define rot_right_15_32(s0, s1, s2, s3, t0, zero)	\
+	rot_right_16_32(s0, s1, s2, s3, t0)				\
+	rot_left_1_32(s0, s1, s2, s3, zero)
 
 /* 	6		6		*/
 #define rot_right_16_32(s0, s1, s2, s3, t0)	\
