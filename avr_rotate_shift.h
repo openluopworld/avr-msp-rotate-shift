@@ -20,23 +20,14 @@
 #define ZERO 0
 #define SEVEN 7
 /* ------------------------------------ */
+/* 	Basic Operations for 16-bit 	*/
+/* ------------------------------------ */
 /* 	Instrcutions	Cycles		*/
 /* 	3		3		*/
 #define rot_left_1_16(s0, s1, zero)	\
 	lsl s0			\n\t	\
 	rsl s1			\n\t	\
 	adc s0, zero
-
-/* 	6		6		*/
-#define rot_left_2_16(s0, s1, zero)	\
-	rot_left_1_16(s0, s1, zero)	\
-	rot_left_1_16(s0, s1, zero)
-
-/* 	9		9		*/
-#define rot_left_3_16(s0, s1, zero)	\
-	rot_left_1_16(s0, s1, zero)	\
-	rot_left_1_16(s0, s1, zero)	\
-	rot_left_1_16(s0, s1, zero)
 
 /* 	7		7		*/
 #define rot_left_4_16(s0, s1, t0, t1)	\
@@ -47,11 +38,6 @@
 	andi t1, CONST_0F	\n\t	\
 	eor  s0, t1		\n\t	\
 	eor  s1, t1		\n\t
-
-/* 	10		10		*/
-#define rot_left_5_16(s0, s1, t0, t1, zero)	\
-	rot_left_4_16(s0, s1, t0, t1)		\
-	rot_left_1_16(s0, s1, zero)
 
 /* 	3		3		*/
 #define rot_left_8_16(s0, s1, t0)	\
@@ -65,6 +51,40 @@
 	bst s0, ZERO		\n\t	\
 	ror s0			\n\t	\
 	bld s1, SEVEN
+
+/* 	7		7		*/
+#define rot_right_4_16(s0, s1, t0, t1)	\
+	swap s0			\n\t	\
+	swap s1			\n\t	\
+	movw t0, s0		\n\t	\
+	eor  t1, t0		\n\t	\
+	andi t1, CONST_F0	\n\t	\
+	eor  s0, t1		\n\t	\
+	eor  s1, t1		\n\t
+
+/* 	3		3		*/
+#define rot_right_8_16(s0, s1, t0)	\
+	rot_left_8_16(s0, s1, t0)
+
+/* ------------------------------------ */
+/* 	Call 16-bit Basic Operations 	*/
+/* ------------------------------------ */
+
+/* 	6		6		*/
+#define rot_left_2_16(s0, s1, zero)	\
+	rot_left_1_16(s0, s1, zero)	\
+	rot_left_1_16(s0, s1, zero)
+
+/* 	9		9		*/
+#define rot_left_3_16(s0, s1, zero)	\
+	rot_left_1_16(s0, s1, zero)	\
+	rot_left_1_16(s0, s1, zero)	\
+	rot_left_1_16(s0, s1, zero)
+
+/* 	10		10		*/
+#define rot_left_5_16(s0, s1, t0, t1, zero)	\
+	rot_left_4_16(s0, s1, t0, t1)		\
+	rot_left_1_16(s0, s1, zero)
 
 /* 	11		11		*/
 #define rot_left_6_16(s0, s1, t0)	\
@@ -87,16 +107,6 @@
 	rot_right_4_16(s0, s1, t0, t1)		\
 	rot_left_1_16(s0, s1, zero)
 
-/* 	7		7		*/
-#define rot_right_4_16(s0, s1, t0, t1)	\
-	swap s0			\n\t	\
-	swap s1			\n\t	\
-	movw t0, s0		\n\t	\
-	eor  t1, t0		\n\t	\
-	andi t1, CONST_F0	\n\t	\
-	eor  s0, t1		\n\t	\
-	eor  s1, t1		\n\t
-
 /* 	11		11		*/
 #define rot_right_5_16(s0, s1, t0, t1)	\
 	rot_right_4_16(s0, s1, t0, t1)	\
@@ -112,11 +122,10 @@
 #define rot_right_7_16(s0, s1, t0, zero)\
 	rot_right_8_16(s0, s1, t0)	\
 	rot_left_1_16(s0, s1, zero)	\
-
-/* 	3		3		*/
-#define rot_right_8_16(s0, s1, t0)	\
-	rot_left_8_16(s0, s1, t0)
 /* ------------------------------------ */
+/* 		16-bit End 		*/
+/* ------------------------------------ */
+
 
 /*
  * For 32-bit block.
@@ -124,6 +133,8 @@
  * zero:		register whose value is 0.
  * t0, t1, t2, t3:	Temp registers
  */
+/* ------------------------------------ */
+/* 	Basic Operations for 32-bit 	*/
 /* ------------------------------------ */
 /* 	Instrcutions	Cycles		*/
 /* 	5		5		*/
@@ -133,17 +144,6 @@
 	ror s2				\n\t	\
 	ror s3 				\n\t	\
 	adc s0, zero			\n\t
-
-/* 	10		10		*/
-#define rot_left_2_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)
-
-/* 	15		15		*/
-#define rot_left_3_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)
 
 /* 	19		19		*/
 #define rot_left_4_32(s0, s1, s2, s3, t0, t1, t2, t3)	\
@@ -156,8 +156,9 @@
 	eor t1, t0			\n\t	\
 	and t1, CONST_0F		\n\t	\
 	eor s1, t1			\n\t	\
+	/* store higher half part of s1, it will be used for s2 */\n\t	\
 	eor t1, t0			\n\t	\
-	eor t0, s3			\n\t	\
+	eor t0, t3			\n\t	\
 	and t0, CONST_0F		\n\t	\
 	eor s0, t0			\n\t	\
 	eor t3, t2			\n\t	\
@@ -165,7 +166,83 @@
 	eor s3, t3			\n\t	\
 	eor t1, t2			\n\t	\
 	and t1, CONST_0F		\n\t	\
-	eor t2, t1			\n\t
+	eor s2, t1			\n\t
+
+/* 	5		5		*/
+#define rot_left_8_32(s0, s1, s2, s3, t0)	\
+	mov t0, s3			\n\t	\
+	mov s3, s2			\n\t	\
+	mov s2, s1			\n\t	\
+	mov s1, s0			\n\t	\
+	mov s0, t0			\n\t
+
+/* 	6		6		*/
+#define rot_left_16_32(s0, s1, s2, s3, t0)	\
+	mov t0, s3			\n\t	\
+	mov s3, s1			\n\t	\
+	mov s1, s3			\n\t	\
+	mov t0, s2			\n\t	\
+	mov s2, s0			\n\t	\
+	mov s0, t0			\n\t
+
+/* 	6		6		*/
+#define rot_right_1_32(s0, s1, s2, s3)	\
+	lsr s3				\n\t	\
+	ror s2				\n\t	\
+	ror s1				\n\t	\
+	bst s0, ZERO			\n\t	\
+	ror s0				\n\t	\
+	bld s3, SEVEN			\n\t
+
+/* 	19		19		*/
+#define rot_right_4_32(s0, s1, s2, s3, t0, t1, t2, t3)	\
+	swap s0				\n\t	\
+	swap s1				\n\t	\
+	swap s2				\n\t	\
+	swap s3				\n\t	\
+	movw t0, s0			\n\t	\
+	movw t2, s0			\n\t	\
+	eor t0, t1			\n\t	\
+	and t0, CONST_F0		\n\t	\
+	eor s0, t0			\n\t	\
+	/* store lower half part of s0, it will be used for s3 */\n\t	\
+	eor t0, t1			\n\t	\
+	eor t1, t2			\n\t	\
+	and t1, CONST_F0		\n\t	\
+	eor s1, t1			\n\t	\
+	eor t2, t3			\n\t	\
+	and t2, CONST_F0		\n\t	\
+	eor s2, t2			\n\t	\
+	eor t3, t0			\n\t	\
+	and t3, CONST_F0		\n\t	\
+	eor s3, t3			\n\t
+
+/* 	5		5		*/
+#define rot_right_8_32(s0, s1, s2, s3, t0)	\
+	mov t0, s0			\n\t	\
+	mov s0, s1			\n\t	\
+	mov s1, s2			\n\t	\
+	mov s2, s3			\n\t	\
+	mov s3, t0			\n\t
+
+/* 	6		6		*/
+#define rot_right_16_32(s0, s1, s2, s3, t0)	\
+	rot_left_16_32(s0, s1, s2, s3, t0)
+
+/* ------------------------------------ */
+/* 	Call 32-bit Basic Operations 	*/
+/* ------------------------------------ */
+
+/* 	10		10		*/
+#define rot_left_2_32(s0, s1, s2, s3, zero)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)
+
+/* 	15		15		*/
+#define rot_left_3_32(s0, s1, s2, s3, zero)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)
 
 /* 	23		23		*/
 #define rot_left_5_32(s0, s1, s2, s3, t0, zero)	\
@@ -184,14 +261,6 @@
 #define rot_left_7_32(s0, s1, s2, s3, t0, zero)	\
 	rot_left_8_32(s0, s1, s2, s3, t0)	\
 	rot_right_1_32(s0, s1, s2, s3, zero)
-
-/* 	5		5		*/
-#define rot_left_8_32(s0, s1, s2, s3, t0)	\
-	mov t0, s3			\n\t	\
-	mov s3, s2			\n\t	\
-	mov s2, s1			\n\t	\
-	mov s1, s0			\n\t	\
-	mov s0, t0			\n\t
 
 /* 	10		10		*/
 #define rot_left_9_32(s0, s1, s2, s3, t0, zero)	\
@@ -234,43 +303,36 @@
 	rot_left_16_32(s0, s1, s2, s3, t0)	\
 	rot_right_1_32(s0, s1, s2, s3)
 
-/* 	6		6		*/
-#define rot_left_16_32(s0, s1, s2, s3, t0)	\
-	mov t0, s3			\n\t	\
-	mov s3, s1			\n\t	\
-	mov s1, s3			\n\t	\
-	mov t0, s2			\n\t	\
-	mov s2, s0			\n\t	\
-	mov s0, t0			\n\t
+/* ------------------------------------ */
 
-/* 	6		6		*/
-#define rot_right_1_32(s0, s1, s2, s3)	\
-	lsr s3				\n\t	\
-	ror s2				\n\t	\
-	ror s1				\n\t	\
-	bst s0, ZERO			\n\t	\
-	ror s0				\n\t	\
-	bld s3, SEVEN			\n\t
+/* 	12		12		*/
+#define rot_right_2_32(s0, s1, s2, s3)	\
+	rot_right_1_32(s0, s1, s2, s3)	\
+	rot_right_1_32(s0, s1, s2, s3)
 
-#define rot_right_2_32
+/* 	18		18		*/
+#define rot_right_3_32(s0, s1, s2, s3)	\
+	rot_right_1_32(s0, s1, s2, s3)	\
+	rot_right_1_32(s0, s1, s2, s3)	\
+	rot_right_1_32(s0, s1, s2, s3)
 
-#define rot_right_3_32
+/* 	20		20		*/
+#define rot_right_5_32(s0, s1, s2, s3, t0, zero)\
+	rot_right_8_32(s0, s1, s2, s3, t0)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)
 
-#define rot_right_4_32
+/* 	15		15		*/
+#define rot_right_6_32(s0, s1, s2, s3, t0, zero)\
+	rot_right_8_32(s0, s1, s2, s3, t0)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)
 
-#define rot_right_5_32
-
-#define rot_right_6_32
-
-#define rot_right_7_32
-
-/* 	5		5		*/
-#define rot_right_8_32(s0, s1, s2, s3, t0)	\
-	mov t0, s0			\n\t	\
-	mov s0, s1			\n\t	\
-	mov s1, s2			\n\t	\
-	mov s2, s3			\n\t	\
-	mov s3, t0			\n\t
+/* 	10		10		*/
+#define rot_right_7_32(s0, s1, s2, s3, t0, zero)\
+	rot_right_8_32(s0, s1, s2, s3, t0)	\
+	rot_left_1_32(s0, s1, s2, s3, zero)
 	
 /* 	11		11		*/
 #define rot_right_9_32(s0, s1, s2, s3, t0)	\
@@ -290,13 +352,10 @@
 	rot_right_1_32(s0, s1, s2, s3)		\
 	rot_right_1_32(s0, s1, s2, s3)
 
-/* 	26		26		*/
-#define rot_right_12_32(s0, s1, s2, s3, t0, zero)\
-	rot_right_16_32(s0, s1, s2, s3, t0)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)
+/* 	24		24		*/
+#define rot_right_12_32(s0, s1, s2, s3, t0, t1, t2, t3)	\
+	rot_right_8_32(s0, s1, s2, s3, t0)		\
+	rot_right_4_32(s0, s1, s2, s3, t0, t1, t2, t3)
 
 /* 	21		21		*/
 #define rot_right_13_32(s0, s1, s2, s3, t0, zero)\
@@ -315,7 +374,7 @@
 #define rot_right_15_32(s0, s1, s2, s3, t0, zero)\
 	rot_right_16_32(s0, s1, s2, s3, t0)	\
 	rot_left_1_32(s0, s1, s2, s3, zero)
+/* ------------------------------------ */
+/* 		32-bit End 		*/
+/* ------------------------------------ */
 
-/* 	6		6		*/
-#define rot_right_16_32(s0, s1, s2, s3, t0)	\
-	rot_left_16_32(s0, s1, s2, s3, t0)
