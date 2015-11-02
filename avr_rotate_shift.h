@@ -145,13 +145,27 @@
 	rot_left_1_32(s0, s1, s2, s3, zero)	\
 	rot_left_1_32(s0, s1, s2, s3, zero)
 
-/* 	20		20		*/
-/* Another method is the same cost	*/
-#define rot_left_4_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)
+/* 	19		19		*/
+#define rot_left_4_32(s0, s1, s2, s3, t0, t1, t2, t3)	\
+	swap s0				\n\t	\
+	swap s1				\n\t	\
+	swap s2				\n\t	\
+	swap s3				\n\t	\
+	movw t0, s0			\n\t	\
+	movw t2, s0			\n\t	\
+	eor t1, t0			\n\t	\
+	and t1, CONST_0F		\n\t	\
+	eor s1, t1			\n\t	\
+	eor t1, t0			\n\t	\
+	eor t0, s3			\n\t	\
+	and t0, CONST_0F		\n\t	\
+	eor s0, t0			\n\t	\
+	eor t3, t2			\n\t	\
+	and t3, CONST_0F		\n\t	\
+	eor s3, t3			\n\t	\
+	eor t1, t2			\n\t	\
+	and t1, CONST_0F		\n\t	\
+	eor t2, t1			\n\t
 
 /* 	23		23		*/
 #define rot_left_5_32(s0, s1, s2, s3, t0, zero)	\
@@ -197,13 +211,10 @@
 	rot_left_1_32(s0, s1, s2, s3, zero)	\
 	rot_left_1_32(s0, s1, s2, s3, zero)
 
-/* 	25		25		*/
-#define rot_left_12_32(s0, s1, s2, s3, t0, zero)\
-	rot_left_8_32(s0, s1, s2, s3, t0)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)	\
-	rot_left_1_32(s0, s1, s2, s3, zero)
+/* 	24		24		*/
+#define rot_left_12_32(s0, s1, s2, s3, t0, t1, t2, t3)	\
+	rot_left_8_32(s0, s1, s2, s3, t0)		\
+	rot_left_4_32(s0, s1, s2, s3, t0, t1, t2, t3)	\
 
 /* 	24		24		*/
 #define rot_left_13_32(s0, s1, s2, s3, t0)	\
@@ -308,55 +319,3 @@
 /* 	6		6		*/
 #define rot_right_16_32(s0, s1, s2, s3, t0)	\
 	rot_left_16_32(s0, s1, s2, s3, t0)
-
-/* Other methods			*/
-#define rot_left_4_32_other(s0, s1, s2, s3, t0, t1, t2, t3)\
-	swap s0				\n\t	\
-	swap s1				\n\t	\
-	swap s2				\n\t	\
-	swap s3				\n\t	\
-	movw t0, s0			\n\t	\
-	movw t2, s0			\n\t	\
-	eor t1, t0			\n\t	\
-	and t1, CONST_0F		\n\t	\
-	eor s1, t1			\n\t	\
-	eor t0, s3			\n\t	\
-	and t0, CONST_0F		\n\t	\
-	eor s0, t0			\n\t	\
-	mov t2, s2			\n\t	\
-	movw t0, s2			\n\t	\
-	eor t2, t3			\n\t	\
-	and t2, CONST_0F		\n\t	\
-	eor s2, t2			\n\t	\
-	eor t1, t0			\n\t	\
-	and t1, CONST_0F		\n\t	\
-	eor s3, t1			\n\t
-
-
-
-
-	swap s0				\n\t	\
-	swap s1				\n\t	\
-	swap s2				\n\t	\
-	swap s3				\n\t	\
-	movw t0, s0			\n\t	\
-	movw t2, s0			\n\t	\
-	eor t1, t0			\n\t	\
-	andi t1, CONST_0F		\n\t	\
-	eor s1, t1			\n\t	\
-
-	eor t0, s3			\n\t	\
-	and t0, CONST_0F		\n\t	\
-	eor s0, t0			\n\t	\
-
-	movw t2, s2			\n\t	\
-
-	eor t1, s0
-	eor t1, s2
-	andi t1, CONST_0F
-	eor s2, t1
-	
-	eor t3, t2			\n\t	\
-	andi t3, CONST_0F		\n\t	\
-	eor s3, t3			\n\t	\
-
