@@ -40,6 +40,7 @@
 	eor  s1, t1		\n\t
 
 /* 	3		3		*/
+/* Sometimes, s0 and s1 may be used in place. Therefore, no instructions are needed.*/
 #define rot_left_8_16(s0, s1, t0)	\
 	mov t0, s0		\n\t	\
 	mov s0, s1		\n\t	\

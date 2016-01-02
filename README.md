@@ -8,3 +8,7 @@ The least number of instructions needed for rotate shift. It means rotating shif
 
 # Results for 16-bit block
 ![rotate shift for 16-bit block](./pic/bit16.png?raw=true)<br>
+
+# msp_rotate_shift
+Rotate shift left (or right) by several bit positions on MSP<br><br>
+
