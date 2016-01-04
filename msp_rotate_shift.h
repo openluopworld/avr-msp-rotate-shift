@@ -62,21 +62,21 @@
 
 /* 	7				*/
 #define rot_left_5_16(s0)		\
-	rot_right_8_16(s0)		\
-	rot_left_1_16(s0)		\
-	rot_left_1_16(s0)		\
-	rot_left_1_16(s0)
+	rot_left_8_16(s0)		\
+	rot_right_1_16(s0)		\
+	rot_right_1_16(s0)		\
+	rot_right_1_16(s0)
 
 /* 	5				*/
 #define rot_left_6_16(s0)		\
-	rot_right_8_16(s0)		\
-	rot_left_1_16(s0)		\
-	rot_left_1_16(s0)
+	rot_left_8_16(s0)		\
+	rot_right_1_16(s0)		\
+	rot_right_1_16(s0)
 
 /* 	3				*/
 #define rot_left_7_16(s0)		\
-	rot_right_8_16(s0)		\
-	rot_left_1_16(s0)
+	rot_left_8_16(s0)		\
+	rot_right_1_16(s0)
 
 /* 	4				*/
 #define rot_right_2_16(s0)		\
@@ -98,21 +98,21 @@
 
 /* 	7				*/
 #define rot_right_5_16(s0)		\
-	rot_left_8_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)
+	rot_right_8_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)
 
 /* 	5				*/
 #define rot_right_6_16(s0)		\
-	rot_left_8_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)
+	rot_right_8_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)
 
 /* 	3				*/
 #define rot_right_7_16(s0)		\
-	rot_left_8_16(s0)		\
-	rot_right_1_16(s0)
+	rot_right_8_16(s0)		\
+	rot_left_1_16(s0)
 /* ------------------------------------ */
 /* 		16-bit End 		*/
 /* ------------------------------------ */
