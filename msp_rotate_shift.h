@@ -133,13 +133,12 @@
 	rlc s1			\n\t	\
 	adc s0			\n\t
 
-/* 	7				*/
+/* 	6				*/
 #define rot_left_8_32(s0, s1, t0)	\
 	swpb s0			\n\t	\
 	swpb s1			\n\t	\
-	mov s1, t0		\n\t	\
-	xor s0, t0		\n\t	\
-	and DZDF, t0		\n\t	\
+	mov.b s1, t0		\n\t	\
+	xor.b s0, t0		\n\t	\
 	xor t0, s0		\n\t	\
 	xor t0, s1		\n\t
 
@@ -219,7 +218,7 @@
 	rot_left_8_32(s0, s1, t0)	\
 	rot_left_1_32(s0, s1)
 
-/* 	13				*/
+/* 	12				*/
 #define rot_left_10_32(s0, s1, t0)	\
 	rot_left_8_32(s0, s1, t0)	\
 	rot_left_1_32(s0, s1)		\
