@@ -9,7 +9,7 @@
 Brief Introduction: 16 16-bit register. Four of the registers are dedicated to program counter(r0 or pc), stack point(r1 or sp), status register(r2 or sr/cg1) and constant generator(r3 or cg2), while the remaining 12 registers(r4-r15) are general-purpose registers. There are 52 instructions in total.
 
 * Instructions in MSP are different with other microcontrollers.
-  + <b>The first register is the source, the second is the destination.
+  + <b>The first register is the source, the second is the destination</b>.
   + For example, <b>mov r5, r4</b> means moving r5 to r4.
 
 * <b>[bit rs, rd]</b> : rs & rd; Set status only, the destination is not written.
