@@ -17,7 +17,7 @@ Brief Introduction: 16 16-bit register. Four of the registers are dedicated to p
 * Logical instructions set C to the opposite of Z (C is set if the result is NOT zero), and clear V to 0.
   + For example: the following instructions rotate shift right (r9:r8) by 1 bit.
 ```C
-[bit #1, r8];
+bit #1, r8;
 rrc r9;
 rrc r8;
 ```
@@ -121,7 +121,6 @@ eor r4, r4, #0xe0
 [1]:<http://infocenter.arm.com/help/topic/com.arm.doc.qrc0001m/QRC0001_UAL.pdf>
 [2]:<http://infocenter.arm.com/help/topic/com.arm.doc.ddi0337h/DDI0337H_cortex_m3_r2p0_trm.pdf>
 [bit rs, rd]:<http://mspgcc.sourceforge.net/manual/x223.html>
-[bit #1, r8]:<http://mspgcc.sourceforge.net/manual/x82.html>
 [mov.b r6, r12]:<http://mspgcc.sourceforge.net/manual/x214.html>
 [mov(.b) @rs+, rd]:<http://www.ece.utep.edu/courses/web3376/Links_files/MSP430%20Quick%20Reference.pdf>
 [Calling Convention and ABI Changes in MSP GCC]:<http://www.ti.com/lit/an/slaa664/slaa664.pdf>
