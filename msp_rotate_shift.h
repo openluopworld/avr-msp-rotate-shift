@@ -21,95 +21,100 @@
 /* 	Basic Operations for 16-bit 	*/
 /* ------------------------------------ */
 /* 	Instrcutions	Cycles		*/
-/* 	2				*/
+/* 	2		2		*/
 #define rot_left_1_16(s0)		\
 	rla s0			\n\t	\
 	adc s0			\n\t
 
-/* 	1				*/
+/* 	1		1		*/
 #define rot_left_8_16(s0)		\
 	swpb s0			\n\t
 
-/* 	2				*/
+/* 	2		4		*/
 #define rot_right_1_16(s0)		\
 	bit ONE, s0		\n\t	\
 	rrc s0			\n\t
 
-/* 	1				*/
+/* 	1		1		*/
 #define rot_right_8_16(s0)		\
 	swpb s0			\n\t
 
 /* ------------------------------------ */
 /* 	Call 16-bit Basic Operations 	*/
 /* ------------------------------------ */
-/* 	4				*/
+/* 	4		4		*/
 #define rot_left_2_16(s0)		\
 	rot_left_1_16(s0)		\
 	rot_left_1_16(s0)
 
-/* 	6				*/
+/* 	6		6		*/
 #define rot_left_3_16(s0)		\
 	rot_left_1_16(s0)		\
 	rot_left_1_16(s0)		\
 	rot_left_1_16(s0)
 
-/* 	8				*/
+/* 	8		8		*/
 #define rot_left_4_16(s0)		\
 	rot_left_1_16(s0)		\
 	rot_left_1_16(s0)		\
 	rot_left_1_16(s0)		\
 	rot_left_1_16(s0)
 
-/* 	7				*/
+/* 	7		10		*/
 #define rot_left_5_16(s0)		\
-	rot_left_8_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)
 
-/* 	5				*/
+/* 	5		10		*/
 #define rot_left_6_16(s0)		\
 	rot_left_8_16(s0)		\
 	rot_right_1_16(s0)		\
 	rot_right_1_16(s0)
 
-/* 	3				*/
+/* 	3		6		*/
 #define rot_left_7_16(s0)		\
 	rot_left_8_16(s0)		\
 	rot_right_1_16(s0)
 
-/* 	4				*/
+/* 	4		8		*/
 #define rot_right_2_16(s0)		\
 	rot_right_1_16(s0)		\
 	rot_right_1_16(s0)
 
-/* 	6				*/
+/* 	6		11		*/
 #define rot_right_3_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)
+	rot_left_8_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)
 
-/* 	8				*/
+/* 	8		9		*/
 #define rot_right_4_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)		\
-	rot_right_1_16(s0)
+	rot_left_8_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)		\
+	rot_left_1_16(s0)
 
-/* 	7				*/
+/* 	7		7		*/
 #define rot_right_5_16(s0)		\
 	rot_right_8_16(s0)		\
 	rot_left_1_16(s0)		\
 	rot_left_1_16(s0)		\
 	rot_left_1_16(s0)
 
-/* 	5				*/
+/* 	5		5		*/
 #define rot_right_6_16(s0)		\
 	rot_right_8_16(s0)		\
 	rot_left_1_16(s0)		\
 	rot_left_1_16(s0)
 
-/* 	3				*/
+/* 	3		3		*/
 #define rot_right_7_16(s0)		\
 	rot_right_8_16(s0)		\
 	rot_left_1_16(s0)
