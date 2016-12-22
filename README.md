@@ -5,7 +5,9 @@
 * ARM Instruction Set [1], [2]
 * In MSP and ARM, the higher bytes are loaded to the higher address of register. Therefore, the order of test values are opposite to the paper.
 
-### MSP430
+## MSP430
+
+### MSP430 Introduction
 Brief Introduction: 16 16-bit register. Four of the registers are dedicated to program counter(r0 or pc), stack point(r1 or sp), status register(r2 or sr/cg1) and constant generator(r3 or cg2), while the remaining 12 registers(r4-r15) are general-purpose registers. There are 52 instructions in total.
 
 * Instructions in MSP are different with other microcontrollers.
@@ -40,34 +42,15 @@ mov    @r15+,    r7;
 
 * The stack pointer is always even. So <b>pop</b> and <b>pop.b</b> instructions will all increase SP by 2. And <b>push</b> and <b>push.b</b> instructions will all decrease SP by 2.
 
-### MSP Basic Instructions
-|   Instruction     |    Flash(bytes)  |     Time(cycles)   |
-| ----------------- |  --------------  |  ----------------  |
-| rrc               |      2           |     1              |
-| swpb              |      2           |     1              |
-| rra               |      2           |     1              |
-| push              |      2           |     3              |
-| mov Rs, Rd        |      2           |     1              |
-| mov Rs, -2(Rd)    |      4           |     4              |
-| mov @Rd+, Rs      |      2           |     2              |
-| add               |      2           |     2              |
-| addc              |      2           |     1              |
-| sub               |      2           |     1              |
-| subc              |      2           |     1              |
-| cmp               |      2           |     1              |
-| bit #num, Rd      |      2/4         |     1/2/3          |
-| bic               |      2           |     1              |
-| bis               |      2           |     1              |
-| xor               |      2           |     1              |
-| and               |      2           |     1              |
-
 ### MSP rotate shift
 The least number of instructions needed for rotate shift. It means rotating shift <b>right</b> if x is positive, otherwise rotating shift left. The red pointers are the basic operations which can not be implemented by others. For example, <i>rotate shift left by 2 bits</i> can be implemented using <i>rotate shift left by 1 bit</i> twice. But it can not be done in turn. (It is the same for AVR)
 
 ### Results for 16-bit block on MSP
 ![rotate shift for 16-bit block on MSP](./pic/msp_results.png?raw=true)<br>
 
-### AVR
+## AVR
+
+### AVR Introduction
 Most of the 133 instructions require a single cycle to execute. The rich instruction set in combimed with the 32 8-bit general purpose registers(r0-r31) with single clock access time. Six of the 32 8-bit registers can be used as three 16-bit indirect register pointers(X, r26-r27; Y, r28-r29; and Z, r30-r31) for addressing the data space.<br>
 
 * Instruction <b>ldi r26, low(key)</b> and <b>ldi r27, high(key)</b> can not be used in assemble c. It should be like this <b>ldi r26, lo8(key)</b> and <b>ldi r27, hi8(key)</b>.
